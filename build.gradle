@@ -1,0 +1,74 @@
+version = '1.0.0'
+
+allprojects {
+
+}
+
+subprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'org.junit.platform.gradle.plugin'
+
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+
+	repositories {
+		jcenter()
+	}
+
+	ext {
+
+		//Testing
+		assertjVersion = '3.9.1'
+		junitVersion = '5.1.0'
+	
+	}
+
+	junitPlatform {
+		
+		filters {
+		
+			engines {
+				// include 'junit-jupiter', 'junit-vintage'
+				// exclude 'custom-engine'
+			}
+			
+			tags {
+				// include 'fast'
+				// exclude 'slow'
+			}
+			// includeClassNamePattern '.*Test'
+			
+		}
+		
+		// enableStandardTestTask true
+		reportsDir file('build/test-results/junit-platform') // this is the default
+		//logManager 'org.apache.logging.log4j.jul.LogManager'
+		//logManager 'org.apache.log4j.LogManager'
+	}
+
+	dependencies {
+
+	   //Testing
+	   testCompile "org.assertj:assertj-core:$assertjVersion"
+	   testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+	   testCompile "org.junit.jupiter:junit-jupiter-params:$junitVersion";
+	   testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
+	}
+
+}
+
+//This location is mandatory
+buildscript {
+
+	repositories {
+		mavenCentral()
+	}
+		
+	dependencies {		
+		classpath "org.junit.platform:junit-platform-gradle-plugin:1.1.0"
+	}
+	
+}

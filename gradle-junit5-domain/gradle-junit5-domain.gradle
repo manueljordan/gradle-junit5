@@ -1,0 +1,9 @@
+project (':gradle-junit5-domain'){
+
+	description 'Domain'
+
+	dependencies {
+		 	   		   		 	   		   	
+	}
+		
+}
