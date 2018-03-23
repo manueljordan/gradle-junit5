@@ -29,6 +29,7 @@ subprojects {
 	}
 
 	dependencies {
+	
 	   //Testing
 	   testCompile "org.assertj:assertj-core:$assertjVersion"
 	   testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"

@@ -35,15 +35,15 @@ class AbstractBandTest {
 
 	}
 
-	void toPassThreeTest() {
+	void toFailOneTest() {
 
-		Band band = new Band("Rick Wakeman");
+		Band band = new Band("Yes");
 
 		assertThat(band).isNotNull()
 		                .isInstanceOf(Band.class)
 		                .extracting("name")
 		                .doesNotContainNull()
-		                .containsExactly("Rick Wakeman");
+		                .containsExactly("No");
 
 	}
 
@@ -68,8 +68,8 @@ class AbstractBandTest {
 
 		@Test
 		@Override
-		void toPassThreeTest() {
-			super.toPassThreeTest();
+		void toFailOneTest() {
+			super.toFailOneTest();
 		}
 
 	}
