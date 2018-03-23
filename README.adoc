@@ -1,0 +1,90 @@
+= Gradle & JUnit 5 Integration
+
+Purpose of this project is accomplish a successful integration about
+`Gradle` with `JUnit` **5**. This project works with `Gradle` for the version **4.6**
+
+`Gradle` offers two approaches to integrate with `JUnit` 5, it according the
+following branches.
+
+== Testing Scenarios
+
+* Exists a total of six `@Test` methods. Three are declared in a class and the other three declared
+in a _static nested class_.
+* Of these six `@Test` methods two must fail, each one from each approach of declaration (_static_ and _not static_),
+it with the purpose to apply `Gradle Report` for failure scenario.
+
+[NOTE]
+.Why use static nested class
+====
+The _static nested class_ approach is used to work around with `Spring Framework`
+and profiles. It with the purpose to reuse `@Test` methods about _assertions_.
+Thus consider a `@Service` bean looking for two possible `@Repository` beans
+based in `JDBC` and `JPA` profiles.
+Thus the `@Test` methods assertion logic are the same for either `JDBC` or `JPA` profiles.
+Therefore through these _static nested classes_ the `@ActiveProfiles` are defined.
+====
+
+== Current Branches
+
+=== org.junit.platform.gradle.plugin
+
+It works with a _deprecated_ plugin in `Gradle` version **4.6** but valid
+for previous versions, such as _4.5.1_.
+
+==== Behavior
+
+[NOTE]
+.Advantages
+====
+* It executes any `@Test` method declared either in a class _or_
+static nested class. Thus the six `@Test` methods are executed
+and exists the expected failure of two. _It is an expected behavior_.
+====
+
+[WARNING]
+.Disadvantages
+====
+* It does not generates the `Gradle Report` directory
+====
+
+=== use.junit.platform
+
+It works around with `useJUnitPlatform()`
+
+==== Behavior
+
+[NOTE]
+.Advantages
+====
+* It generates the `Gradle Report` directory
+====
+
+[WARNING]
+.Disadvantages
+====
+* It executes any `@Test` method declared in a simple class **but** _ignores_
+the declared within the _static nested class_. Thus just three `@Test` methods are executed
+, it about from the _**non** static class_, and appears one failure, just
+from the simple class. _It is a **not** expected behavior_.
+====
+
+== Observations
+
+* The three branches, `master` and the other two, use the same set of `@Test` methods.
+* The unique difference between the `master` and `use.junit.platform` branches is that the latter
+use:
+
+[source]
+----
+buildscript {
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.junit.platform:junit-platform-gradle-plugin:1.1.0"
+  }
+
+}
+----
