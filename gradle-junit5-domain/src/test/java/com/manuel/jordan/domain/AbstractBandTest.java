@@ -9,9 +9,8 @@ import org.junit.jupiter.api.Test;
  * @author manueljordan
  * @since gradle-junit-5
  */
-class BandTest {
+class AbstractBandTest {
 
-	@Test
 	void toPassOneTest() {
 
 		Band band = new Band("Pink Floyd");
@@ -24,7 +23,6 @@ class BandTest {
 
 	}
 
-	@Test
 	void toPassTwoTest() {
 
 		Band band = new Band("The Doors");
@@ -37,16 +35,42 @@ class BandTest {
 
 	}
 
-	@Test
-	void toFailOneTest() {
+	void toPassThreeTest() {
 
-		Band band = new Band("Yes");
+		Band band = new Band("Rick Wakeman");
 
 		assertThat(band).isNotNull()
 		                .isInstanceOf(Band.class)
 		                .extracting("name")
 		                .doesNotContainNull()
-		                .containsExactly("No");
+		                .containsExactly("Rick Wakeman");
+
+	}
+
+	/**
+	 *
+	 * @author manueljordan
+	 * @since gradle-junit-5
+	 */
+	static class StaticBandTest extends AbstractBandTest {
+
+		@Test
+		@Override
+		void toPassOneTest() {
+			super.toPassOneTest();
+		}
+
+		@Test
+		@Override
+		void toPassTwoTest() {
+			super.toPassTwoTest();
+		}
+
+		@Test
+		@Override
+		void toPassThreeTest() {
+			super.toPassThreeTest();
+		}
 
 	}
 
